@@ -1,0 +1,145 @@
+<깃허브 사용법 기초>
+
+- 개요 -
+1.사전지식
+1) commit: 파일을 추가하거나 변경 내용을 저장소에 저장하는 작업
+2) push: 커밋 내용을 원격 저장소(깃허브 레포지터리)에 업로드
+3) pull: 원격저장소의 파일을 내 로컬 저장소에 저장
+4) branch: 하나의 레포지터리에 나누어 놓은 여러 개별 공간. 각각의 브랜치는 다른 브랜치에 영향을 주지 않음
+5) merge: 다른 브랜치의 내용을 하나의 브랜치에 합치는 과정. 주로 master라는 이름의 브랜치에 병합.
+*디폴트 브랜치 이름은 깃허브에서 변경할 수 있다. master가 아닌 다른 이름일 수도 있으니 확인해 볼 것*
+
+2. 깃허브 계정 생성
+https://github.com/
+
+3. 깃 설치
+https://git-scm.com/
+
+4. 깃 초기설정
+1) 사용자 등록
+>>> git config --global user.name "[사용자 이름]"
+>>> git config --global user.email [사용자 메일]
+
+2) 설정 정보 확인
+>>> git config --list
+
+- 기본적인 push & pull 하는 법 -
+1. 레포지터리 생성
+깃허브 홈페이지에서 만들 수 있다.
+
+2. 로컬 저장소에 깃 저장소 생성 & 원격 저장소 연결
+1)  깃 저장소 생성
+(해당 로컬 저장소로 이동후)
+>>> git init
+
+2) 원격 저장소 연결
+>>> git remote add origin [깃허브 레포지터리 URL]
+
+3. push 하기
+1) add(커밋할 파일을 추가하는 작업)
+>>> git add [파일명]
+
+2) commit
+>>> git commit -m "[메세지 입력]"
+
+3) 현재 상태 확인
+>>> git status
+
+4) push
+>>> git push origin master
+
+이후, 깃허브에 접속하면 해당 파일이 업로드 되어있는 것을 확인할 수 있다.
+
+4. pull 하기
+>>> git pull origin master
+
+이후, 로컬 저장소를 확인해 보면 원격 저장소의 파일이 다운로드 되어있는 것을 확인할 수 있다.
+
+
+- 브랜치를 이용해 협업하기 -
+1. 깃허브 레포지터리 생성
+
+2. 공동 작업자 추가
+팀원의 깃허브 이메일로 등록할 수 있음
+
+3. 공동 작업자의 pc 로컬 저장소에 원격 저장소 연결(clone)
+>>> git clone [레포지터리URL]
+*레포지터리 관리자는 remote만 하면 된다*
+
+4. 공동 작업자 브랜치 생성하기
+1) 브랜치 생성
+>>> git branch [브랜치 이름]
+
+2) 해당 브랜치로 이동
+>>> git checkout [브랜치 이름]
+
+*git checkout -b [브랜치 이름]으로 생성과 동시에 이동 가능*
+
+3) 로컬 브랜치를 원격 브랜치에 추가하기
+>>> git push origin [브랜치 이름]
+
+4) 로컬 브랜치와 원격 브랜치 연동하기
+>>> git branch --set-upstream-to origin/[브랜치 이름]
+*생성된 브랜치는 각각 로컬과 원격 저장소에 각자 존재한다. 따라서 이를 연동시켜 작업하는 것이 좋다*
+
+5. 브랜치 확인
+1) 로컬 브랜치 확인
+>>> git branch
+
+2) 원격 브랜치 확인
+>>> git branch -r
+
+3) 모든 브랜치 확인
+>>> git branch -a
+
+브랜치 이름 앞에 *이 붙어 있는 건 현재 브랜치
+
+6. 브랜치에 push 하기
+주의! 공동 작업하는 과정에서 브랜치의 파일 내용이 변경되었을 수 있으니, 작업하기 전 항상 pull을 해야한다.
+
+1) 해당 브랜치로 체크아웃
+2) add
+3) commit
+4) push
+>>> git push origin [브랜치 이름]
+*브랜치를 생성하고 푸시하면 위에서 설명한 추가과정 없이도 로컬 브랜치가 자동으로 원격 브랜치에 추가된다*
+
+이후, 깃허브에서 해당 이름의 브랜치가 생성되고, 그 브랜치에 파일이 업로드 된 것을 확인할 수 있다.
+
+7. 브랜치에서 pull 하기
+1) 해당 브랜치로 체크아웃
+2) pull
+>>> git pull
+
+- 공동 작업물을 병합 하기 -
+1. 기본적인 merge 방법
+1) master로 체크아웃
+2) 브랜치 결과를 병합
+>>> git merge [병합하고자 하는 브랜치 이름]
+
+3) master에 push
+>>> git push origin master
+
+2. 깃허브 pull request를 활용한 merge
+1) 공동 작업자가 자신의 브랜치에 결과물을 push
+2) 깃허브 웹에서 pull request를 클릭
+3) 공동 작업자가 메세지와 함께 새로운 pull request를 생성
+4) 관리자는 확인 후 Merge pull request를 클릭해 병합
+
+이후, master 브랜치에 해당 브랜치에 있던 파일 내용이 나타나는 것을 확인할 수 있다.
+
+- 추가로 알아볼 것 -
+1. fork
+2. fetch
+3. origin과 upstream
+4. LF와 CR 설정
+5. 기타 위에서 소개한 명령어의 여러 옵션들
+
+- 참고자료 -
+
+1. https://12716.tistory.com/entry/Git-GitHub-%ED%98%91%EC%97%85%ED%95%98%EA%B8%B0
+2. https://autumnly1007.tistory.com/247
+3. https://tagilog.tistory.com/377
+4. https://dlsdn73.tistory.com/659
+5. https://moding.tistory.com/entry/Git-%EC%9B%90%EA%B2%A9remote-%EB%B8%8C%EB%9E%9C%EC%B9%98-%EC%83%9D%EC%84%B1-%EB%B0%8F-local-%EB%B8%8C%EB%9E%9C%EC%B9%98-%EC%97%B0%EB%8F%99
+
